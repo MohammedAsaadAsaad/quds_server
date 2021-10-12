@@ -1,45 +1,56 @@
 part of quds_server;
 
+/// The base class of api validators
 abstract class ApiValidator {
   dynamic _parent;
   String? _validate(String fieldName, dynamic value);
 
+  /// Add [Required] validation rule.
   Required required() {
     return Required().._parent = this;
   }
 
+  /// Add [IsString] validation rule.
   IsString isString() {
     return IsString().._parent = this;
   }
 
+  /// Add [IsInteger] validation rule.
   IsInteger isInteger() {
     return IsInteger().._parent = this;
   }
 
+  /// Add [IsDouble] validation rule.
   IsDouble isDouble() {
     return IsDouble().._parent = this;
   }
 
+  /// Add [IsUrl] validation rule.
   IsUrl isUrl() {
     return IsUrl().._parent = this;
   }
 
+  /// Add [IsEmail] validation rule.
   IsEmail isEmail() {
     return IsEmail().._parent = this;
   }
 
+  /// Add [MatchRegex] validation rule.
   MatchRegex matchRegex(String pattern) {
     return MatchRegex(pattern).._parent = this;
   }
 
+  /// Add [Max] validation rule.
   Max max(double max) {
     return Max(max).._parent = this;
   }
 
+  /// Add [Min] validation rule.
   Min min(double min) {
     return Min(min).._parent = this;
   }
 
+  /// validate the [fieldName] if matches the intented rules.
   String? validate(String fieldName, dynamic value) {
     var checkValue =
         _parent?.validate(fieldName, value) ?? _validate(fieldName, value);
@@ -47,6 +58,7 @@ abstract class ApiValidator {
   }
 }
 
+/// validate the whole request [bodyMap] if matches the passed [validationRules]
 Response? validateRequest(
     Map<String, ApiValidator> validationRules, Map<String, dynamic> bodyMap) {
   for (var v in validationRules.entries) {

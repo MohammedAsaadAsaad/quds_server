@@ -1,3 +1,4 @@
+/// A core server for creating fast dart servers with support of routers, controllers, middlewares.
 library quds_server;
 
 import 'dart:async';

@@ -1,9 +1,11 @@
 part of quds_server;
 
+/// Class represents the tokens service
 class TokenService {
   static final Map<TokenServiceConfigurations, TokenService> _createdServices =
       {};
 
+  /// Create an instance of [TokenService] or get the created one.
   factory TokenService(TokenServiceConfigurations configurations) {
     var instance = _createdServices[configurations];
     if (instance != null) return instance;
@@ -15,16 +17,20 @@ class TokenService {
 
   TokenService._(this.configurations);
 
+  /// The configuration of this service.
   final TokenServiceConfigurations configurations;
+
   final RedisConnection _dbConnection = RedisConnection();
   static late Command _cache;
   static final String _prefix = 'token';
 
+  /// Start the tokens service.
   Future<void> start() async {
     _cache =
         await _dbConnection.connect(configurations.host, configurations.port);
   }
 
+  /// Create a token with its related refresh token.
   Future<TokenPair> createTokenPair(
       String userId, TokenServiceConfigurations configurations) async {
     var tokenExpiry =
@@ -53,10 +59,12 @@ class TokenService {
     await _cache.send_object(['EXPIRE', '$_prefix:$id', expiry.inSeconds]);
   }
 
+  /// Get the refresh token related to record id.
   Future<dynamic> getRefreshToken(String id) async {
     return await _cache.get('$_prefix:$id');
   }
 
+  /// remove the refresh token related to record id.
   Future<void> removeRefreshToken(String id) async {
     await _cache.send_object(['EXPIRE', '$_prefix:$id', '-1']);
   }

@@ -1,12 +1,20 @@
 part of quds_server;
 
+/// A base class of the routers
 abstract class QudsRouter<T extends QudsController> {
+  /// The related controller of this router
   T? controller;
 
+  /// The prefix of this router (eg: /users/)
   final String prefix;
+
+  /// Create an instance of [QudsRouter]
   QudsRouter({this.prefix = '', this.controller});
+
+  /// The sub routes
   List<QudsRouterHandler> get routes;
 
+  /// Mount rhis router and its sub router on the server app
   void mountOnRouter(Router app) {
     Router router = Router();
     for (var r in routes) {

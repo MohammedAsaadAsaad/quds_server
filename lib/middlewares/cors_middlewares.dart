@@ -6,7 +6,9 @@ final _corsHeaders = {
   'Access-Control-Allow-Headers': 'Origin, Content-Type',
 };
 
+/// A middleware to provide the response with cors headers if `OPTIONS` method recieved.
 class CorsMiddleware extends QudsMiddleware {
+  /// Create an instance of [CorsMiddleware]
   CorsMiddleware()
       : super(
             middleware: createMiddleware(requestHandler: (r) {

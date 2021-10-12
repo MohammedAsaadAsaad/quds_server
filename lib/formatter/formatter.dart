@@ -35,6 +35,7 @@ Response _formatResponse(int httpStatus,
       context: context);
 }
 
+/// Get an instance of [Response] with forbidden status
 Response responseApiForbidden(
     {int apiStatus = HttpStatus.forbidden,
     String? message,
@@ -51,6 +52,7 @@ Response responseApiForbidden(
       headers: headers);
 }
 
+/// Get an instance of [Response] with bad request status
 Response responseApiBadRequest(
     {int apiStatus = HttpStatus.badRequest,
     String? message,
@@ -67,6 +69,7 @@ Response responseApiBadRequest(
       headers: headers);
 }
 
+/// Get an instance of [Response] with ok status
 Response responseApiOk(
     {int apiStatus = 0,
     String? message,
@@ -83,6 +86,7 @@ Response responseApiOk(
       headers: headers);
 }
 
+/// Get an instance of [Response] with not found status
 Response responseApiNotFound(
     {int apiStatus = HttpStatus.notFound,
     String? message,
@@ -99,6 +103,7 @@ Response responseApiNotFound(
       headers: headers);
 }
 
+/// Get an instance of [Response] with internal server error status
 Response responseApiInternalServerError(
     {int apiStatus = HttpStatus.internalServerError,
     String? message,
@@ -115,7 +120,9 @@ Response responseApiInternalServerError(
       headers: headers);
 }
 
+/// Provide some methods on request for decoding the recieved body into json map.
 extension RequestExtension on Request {
+  /// Get the recieved body as json map.
   Future<Map<String, dynamic>> get bodyAsJson async {
     try {
       return jsonDecode(await readAsString()) as Map<String, dynamic>;

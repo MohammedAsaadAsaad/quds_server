@@ -1,7 +1,11 @@
 part of quds_server;
 
+/// Inject the request context with user auth details if authorized
 class InjectAuthorizationDetailsMiddleware extends QudsMiddleware {
+  /// The secret key to verify the caller user.
   final String secretKey;
+
+  /// Create an instance of [InjectAuthorizationDetailsMiddleware]
   InjectAuthorizationDetailsMiddleware(this.secretKey)
       : super(middleware: (Handler innerHandler) {
           return (Request request) async {
@@ -19,6 +23,7 @@ class InjectAuthorizationDetailsMiddleware extends QudsMiddleware {
         });
 }
 
+/// A middleware to prevent unauthorized users to connect the server apis.
 class AuthorizationCheckerMiddleware extends QudsMiddleware {
   AuthorizationCheckerMiddleware()
       : super(middleware: createMiddleware(requestHandler: (Request request) {

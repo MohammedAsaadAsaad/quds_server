@@ -1,16 +1,32 @@
 part of quds_server;
 
+/// The server configurations
 class ServerConfigurations {
+  /// The main host address of this server app.
   final String host;
+
+  /// The port of this server app.
   final int port;
+
+  /// The secret key of this server app.
   final String secretKey;
+
+  /// Weather to enable  logging.
   final bool? enableLogging;
+
+  /// Weather to enable http connections logging.
   final bool? enableRequestsLogging;
+
+  /// Weather to initialize the authorization + token service.
   final bool? enableAuthorization;
+
+  /// Weather the app is running in debug mode.
   final bool isDebugMode;
 
+  /// The token service configurations.
   TokenServiceConfigurations? tokenServiceConfigurations;
 
+  /// Create an instance of [ServerConfigurations]
   ServerConfigurations(
       {this.host = 'localhost',
       this.port = 8080,

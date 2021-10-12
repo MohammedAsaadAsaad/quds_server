@@ -1,19 +1,11 @@
 name: quds_server
-description: A starting point for Dart libraries or applications.
+description: A core server for creating fast dart servers with support of routers, controllers, middlewares.
 version: 1.0.0
-# homepage: https://www.example.com
+homepage: https://github.com/MohammedAsaadAsaad/quds_server
 
 environment:
   sdk: '>=2.14.2 <3.0.0'
 
-
-# dependencies:
-#   path: ^1.8.0
-
-dev_dependencies:
-  lints: ^1.0.0
-  test: ^1.16.0
-  
 dependencies: 
   crypto: ^3.0.1
   dart_jsonwebtoken: ^2.3.2
@@ -22,3 +14,8 @@ dependencies:
   shelf_router: ^1.1.1
   uuid: ^3.0.5
   validators: ^3.0.0
+
+dev_dependencies:
+  lints: ^1.0.0
+  test: ^1.16.0
+  

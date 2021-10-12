@@ -1,5 +1,6 @@
 part of quds_server;
 
+/// The desired http method
 enum RouteMethod {
   /// The HTTP GET method is used to read (or retrieve) a representation of a resource. In case of success (or non-error), GET returns a representation in JSON and an HTTP response status code of 200 (OK). In an error case, it most often returns a 404 (NOT FOUND) or 400 (BAD REQUEST).
   get,
@@ -18,7 +19,13 @@ enum RouteMethod {
   ///
   /// On successful deletion, the HTTP response status code 204 (No Content) returns with no response body.
   delete,
+
+  /// The PUT method replaces all current representations of the target resource with the request payload.
   put,
+
+  /// The HEAD method asks for a response identical to a GET request, but without the response body.
   head,
+
+  /// The OPTIONS method describes the communication options for the target resource.
   options
 }

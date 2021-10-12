@@ -1,14 +1,24 @@
 part of quds_server;
 
+/// Define the server app
 class QudsServer {
+  /// The app name.
   final String appName;
+
+  /// The server configurations
   final ServerConfigurations configurations;
+
+  /// The server routers
   final List<QudsRouter> routers;
+
+  /// The injected middlewares
   final List<QudsMiddleware>? middlewares;
   TokenService? _tokenService;
 
+  /// To get the token service of this server app
   TokenService? get tokenService => _tokenService;
 
+  /// Create an instance of [QudsServer]
   QudsServer({
     required this.appName,
     required this.configurations,
@@ -16,6 +26,7 @@ class QudsServer {
     this.middlewares,
   });
 
+  /// To start the server app
   Future<HttpServer> start() async {
     assert(configurations.enableAuthorization != null ||
         configurations.enableAuthorization == false ||
@@ -37,7 +48,7 @@ class QudsServer {
 
     return result
       ..then((value) => _logMessage(
-          '[$appName] started serving at:  ${configurations.host}:${configurations.port}'));
+          '[$appName] started serving at:  http://${configurations.host}:${configurations.port}'));
   }
 
   Handler _getAppHandler(Router app) {
@@ -51,7 +62,6 @@ class QudsServer {
         InjectAuthorizationDetailsMiddleware(configurations.secretKey),
       if (this.middlewares != null) ...this.middlewares!
     ];
-
     for (var m in middlewares) {
       result = result.addMiddleware(m.middleware);
     }
