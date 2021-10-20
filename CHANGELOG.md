@@ -9,3 +9,7 @@
 
 ## 1.0.0+3
 - Updated README.md
+
+
+## 1.0.0+4
+- Initialized Quds Server CLI Tool

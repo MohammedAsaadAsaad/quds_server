@@ -6,7 +6,9 @@ void main() {
   server = QudsServer(
       appName: 'Example App',
       configurations: ServerConfigurations(
-          port: 2028, secretKey: 'asadl-ad3234-1312-1232ed-asd'),
+          // securityContext: SecurityContext.defaultContext,
+          port: 2028,
+          secretKey: 'asadl-ad3234-1312-1232ed-asd'),
       routers: [ExampleRouter()]);
 
   server.start();

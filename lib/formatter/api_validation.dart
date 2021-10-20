@@ -20,6 +20,11 @@ abstract class ApiValidator {
     return IsInteger().._parent = this;
   }
 
+  /// Add [IsDateTime] validation rule.
+  IsDateTime isDateTime() {
+    return IsDateTime().._parent = this;
+  }
+
   /// Add [IsDouble] validation rule.
   IsDouble isDouble() {
     return IsDouble().._parent = this;
@@ -84,6 +89,16 @@ class IsInteger extends ApiValidator {
   }
 }
 
+class IsDateTime extends ApiValidator {
+  @override
+  String? _validate(String fieldName, value) {
+    if (value == null) return null;
+    if (value is! String || DateTime.tryParse(value) == null) {
+      return '[$fieldName] must be a DateTime object';
+    }
+  }
+}
+
 class IsString extends ApiValidator {
   @override
   String? _validate(String fieldName, value) {
@@ -127,7 +142,7 @@ class Max extends ApiValidator {
       return 'Invalid range value [$fieldName - Max]';
     }
 
-    if (value is String) {
+    if (value is String || value is List) {
       if (_max != _max.toInt()) {
         return '[$fieldName] Range must be integer for string length';
       }
@@ -149,7 +164,7 @@ class Min extends ApiValidator {
       return 'Invalid range value [$fieldName - Min]';
     }
 
-    if (value is String) {
+    if (value is String || value is List) {
       if (_min != _min.toInt()) {
         return '[$fieldName] Range must be integer for string length';
       }

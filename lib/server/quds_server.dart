@@ -44,7 +44,8 @@ class QudsServer {
     _mountRouters(app);
 
     var appHandler = _getAppHandler(app);
-    var result = serve(appHandler, configurations.host, configurations.port);
+    var result = serve(appHandler, configurations.host, configurations.port,
+        securityContext: configurations.securityContext);
 
     return result
       ..then((value) => _logMessage(

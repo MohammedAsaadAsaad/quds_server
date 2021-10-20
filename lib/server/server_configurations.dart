@@ -2,6 +2,8 @@ part of quds_server;
 
 /// The server configurations
 class ServerConfigurations {
+  final SecurityContext? securityContext;
+
   /// The main host address of this server app.
   final String host;
 
@@ -29,6 +31,7 @@ class ServerConfigurations {
   /// Create an instance of [ServerConfigurations]
   ServerConfigurations(
       {this.host = 'localhost',
+      this.securityContext,
       this.port = 8080,
       required this.secretKey,
       this.tokenServiceConfigurations,
