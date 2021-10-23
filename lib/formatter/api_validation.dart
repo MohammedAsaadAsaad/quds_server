@@ -138,6 +138,7 @@ class Max extends ApiValidator {
   Max(this._max);
   @override
   String? _validate(String fieldName, value) {
+    if (value == null) return null;
     if ((value is String && _max < 0)) {
       return 'Invalid range value [$fieldName - Max]';
     }
@@ -160,6 +161,7 @@ class Min extends ApiValidator {
   Min(this._min);
   @override
   String? _validate(String fieldName, value) {
+    if (value == null) return null;
     if ((value is String && _min < 0)) {
       return 'Invalid range value [$fieldName - Min]';
     }
