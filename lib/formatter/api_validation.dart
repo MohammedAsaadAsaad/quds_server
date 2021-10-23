@@ -3,7 +3,7 @@ part of quds_server;
 /// The base class of api validators
 abstract class ApiValidator {
   dynamic _parent;
-  String? _validate(String fieldName, dynamic value);
+  String? validateValue(String fieldName, dynamic value);
 
   /// Add [Required] validation rule.
   Required required() {
@@ -58,7 +58,7 @@ abstract class ApiValidator {
   /// validate the [fieldName] if matches the intented rules.
   String? validate(String fieldName, dynamic value) {
     var checkValue =
-        _parent?.validate(fieldName, value) ?? _validate(fieldName, value);
+        _parent?.validate(fieldName, value) ?? validateValue(fieldName, value);
     return checkValue;
   }
 }
@@ -76,14 +76,14 @@ Response? validateRequest(
 
 class Required extends ApiValidator {
   @override
-  String? _validate(String fieldName, value) {
+  String? validateValue(String fieldName, value) {
     if (value == null) return '[$fieldName] is required';
   }
 }
 
 class IsInteger extends ApiValidator {
   @override
-  String? _validate(String fieldName, value) {
+  String? validateValue(String fieldName, value) {
     if (value == null) return null;
     if (value is! int) return '[$fieldName] must be an integer value';
   }
@@ -91,7 +91,7 @@ class IsInteger extends ApiValidator {
 
 class IsDateTime extends ApiValidator {
   @override
-  String? _validate(String fieldName, value) {
+  String? validateValue(String fieldName, value) {
     if (value == null) return null;
     if (value is! String || DateTime.tryParse(value) == null) {
       return '[$fieldName] must be a DateTime object';
@@ -101,7 +101,7 @@ class IsDateTime extends ApiValidator {
 
 class IsString extends ApiValidator {
   @override
-  String? _validate(String fieldName, value) {
+  String? validateValue(String fieldName, value) {
     if (value == null) return null;
     if (value is! String) return '[$fieldName] must be a string value';
   }
@@ -109,7 +109,7 @@ class IsString extends ApiValidator {
 
 class IsDouble extends ApiValidator {
   @override
-  String? _validate(String fieldName, value) {
+  String? validateValue(String fieldName, value) {
     if (value == null) return null;
     if (value is! int && value is! double) {
       return '[$fieldName] must be a double value';
@@ -121,7 +121,7 @@ class MatchRegex extends ApiValidator {
   final String _pattern;
   MatchRegex(this._pattern);
   @override
-  String? _validate(String fieldName, value) {
+  String? validateValue(String fieldName, value) {
     if (value == null) return null;
     if (value is! String) return '[$fieldName] must be String object';
 
@@ -137,7 +137,7 @@ class Max extends ApiValidator {
   final double _max;
   Max(this._max);
   @override
-  String? _validate(String fieldName, value) {
+  String? validateValue(String fieldName, value) {
     if (value == null) return null;
     if ((value is String && _max < 0)) {
       return 'Invalid range value [$fieldName - Max]';
@@ -160,7 +160,7 @@ class Min extends ApiValidator {
   final double _min;
   Min(this._min);
   @override
-  String? _validate(String fieldName, value) {
+  String? validateValue(String fieldName, value) {
     if (value == null) return null;
     if ((value is String && _min < 0)) {
       return 'Invalid range value [$fieldName - Min]';
@@ -181,7 +181,7 @@ class Min extends ApiValidator {
 
 class IsUrl extends ApiValidator {
   @override
-  String? _validate(String fieldName, value) {
+  String? validateValue(String fieldName, value) {
     if (value == null) return null;
     if (value is! String) return '[$fieldName] must be string';
     var result = Uri.tryParse(value)?.isAbsolute;
@@ -191,7 +191,7 @@ class IsUrl extends ApiValidator {
 
 class IsEmail extends ApiValidator {
   @override
-  String? _validate(String fieldName, value) {
+  String? validateValue(String fieldName, value) {
     if (value == null) return null;
     if (value is! String) return '[$fieldName] must be string';
     if (!validators.isEmail(value)) return '[$fieldName] must be an email';

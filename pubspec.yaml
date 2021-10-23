@@ -1,6 +1,6 @@
 name: quds_server
 description: A core server for creating fast dart servers with support of routers, controllers, middlewares.
-version: 1.0.0+5
+version: 1.0.0+6
 homepage: https://github.com/MohammedAsaadAsaad/quds_server
 
 environment:
