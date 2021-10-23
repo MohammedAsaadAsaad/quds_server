@@ -13,3 +13,6 @@
 
 ## 1.0.0+4
 - Initialized Quds Server CLI Tool
+
+## 1.0.0+5
+- Fixed Max + Min in Api validators
