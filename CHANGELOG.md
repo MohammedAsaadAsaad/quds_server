@@ -17,5 +17,5 @@
 ## 1.0.0+5
 - Fixed Max + Min in Api validators
 
-## 1.0.0+6
+## 1.0.0+7
 - Added abilty to ApiValitor to be inherited externally

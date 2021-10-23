@@ -2,63 +2,63 @@ part of quds_server;
 
 /// The base class of api validators
 abstract class ApiValidator {
-  dynamic _parent;
+  ApiValidator? parent;
   String? validateValue(String fieldName, dynamic value);
 
   /// Add [Required] validation rule.
   Required required() {
-    return Required().._parent = this;
+    return Required()..parent = this;
   }
 
   /// Add [IsString] validation rule.
   IsString isString() {
-    return IsString().._parent = this;
+    return IsString()..parent = this;
   }
 
   /// Add [IsInteger] validation rule.
   IsInteger isInteger() {
-    return IsInteger().._parent = this;
+    return IsInteger()..parent = this;
   }
 
   /// Add [IsDateTime] validation rule.
   IsDateTime isDateTime() {
-    return IsDateTime().._parent = this;
+    return IsDateTime()..parent = this;
   }
 
   /// Add [IsDouble] validation rule.
   IsDouble isDouble() {
-    return IsDouble().._parent = this;
+    return IsDouble()..parent = this;
   }
 
   /// Add [IsUrl] validation rule.
   IsUrl isUrl() {
-    return IsUrl().._parent = this;
+    return IsUrl()..parent = this;
   }
 
   /// Add [IsEmail] validation rule.
   IsEmail isEmail() {
-    return IsEmail().._parent = this;
+    return IsEmail()..parent = this;
   }
 
   /// Add [MatchRegex] validation rule.
   MatchRegex matchRegex(String pattern) {
-    return MatchRegex(pattern).._parent = this;
+    return MatchRegex(pattern)..parent = this;
   }
 
   /// Add [Max] validation rule.
   Max max(double max) {
-    return Max(max).._parent = this;
+    return Max(max)..parent = this;
   }
 
   /// Add [Min] validation rule.
   Min min(double min) {
-    return Min(min).._parent = this;
+    return Min(min)..parent = this;
   }
 
   /// validate the [fieldName] if matches the intented rules.
   String? validate(String fieldName, dynamic value) {
     var checkValue =
-        _parent?.validate(fieldName, value) ?? validateValue(fieldName, value);
+        parent?.validate(fieldName, value) ?? validateValue(fieldName, value);
     return checkValue;
   }
 }
