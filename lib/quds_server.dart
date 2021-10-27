@@ -29,7 +29,6 @@ part 'authorization/utils.dart';
 part 'server/quds_server.dart';
 part 'server/server_configurations.dart';
 part 'formatter/formatter.dart';
-part 'formatter/api_validation.dart';
 
 // Middlewares
 part 'middlewares/quds_middleware.dart';
@@ -44,3 +43,11 @@ part 'routing/route_method.dart';
 
 // Controllers
 part 'controllers/quds_controller.dart';
+
+// Validation
+part 'validation/api_validation.dart';
+part 'validation/commons.dart';
+part 'validation/datetimes.dart';
+part 'validation/strings.dart';
+part 'validation/numbers.dart';
+part 'validation/lists.dart';

@@ -19,3 +19,6 @@
 
 ## 1.0.0+7
 - Added abilty to ApiValitor to be inherited externally
+
+## 1.0.0+8
+- Added lists validations
