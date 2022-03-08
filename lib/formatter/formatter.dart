@@ -125,8 +125,17 @@ extension RequestExtension on Request {
   /// Get the recieved body as json map.
   Future<Map<String, dynamic>> get bodyAsJson async {
     try {
-      return jsonDecode(await readAsString()) as Map<String, dynamic>;
+      switch (method) {
+        case 'POST':
+          return (context['bodyJson'] ?? jsonDecode(await readAsString()))
+              as Map<String, dynamic>;
+        case 'GET':
+          return (context['bodyJson'] ?? this.params) as Map<String, dynamic>;
+        default:
+          return {};
+      }
     } catch (e) {
+      print(e);
       return {};
     }
   }

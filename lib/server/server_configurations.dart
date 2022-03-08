@@ -15,6 +15,7 @@ class ServerConfigurations {
 
   /// Weather to enable  logging.
   final bool? enableLogging;
+  final bool? automaticDecodeBodyAsJson;
 
   /// Weather to enable http connections logging.
   final bool? enableRequestsLogging;
@@ -33,6 +34,7 @@ class ServerConfigurations {
       {this.host = 'localhost',
       this.securityContext,
       this.port = 8080,
+      this.automaticDecodeBodyAsJson = true,
       required this.secretKey,
       this.tokenServiceConfigurations,
       this.enableLogging = true,

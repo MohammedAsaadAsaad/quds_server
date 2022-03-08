@@ -58,6 +58,8 @@ class QudsServer {
     // Inject the middlewares
     List<QudsMiddleware> middlewares = [
       CorsMiddleware(),
+      if (configurations.automaticDecodeBodyAsJson == true)
+        BodyGeneratorMiddleware(),
       if (configurations.enableRequestsLogging == true) LoggingMiddleware(),
       if (configurations.enableAuthorization == true)
         InjectAuthorizationDetailsMiddleware(configurations.secretKey),

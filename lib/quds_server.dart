@@ -35,6 +35,7 @@ part 'middlewares/quds_middleware.dart';
 part 'middlewares/auth_middlewares.dart';
 part 'middlewares/logging_middlewares.dart';
 part 'middlewares/cors_middlewares.dart';
+part 'middlewares/body_generator.dart';
 
 //Routing
 part 'routing/quds_router.dart';
