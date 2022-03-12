@@ -37,6 +37,7 @@ class Max extends ApiValidator {
     } else {
       if (!(value <= _max)) return '[$fieldName] value must be <= $_max';
     }
+    return null;
   }
 }
 
@@ -60,6 +61,7 @@ class Min extends ApiValidator {
     } else {
       if (!(value <= _min)) return '[$fieldName] value must be >= $_min';
     }
+    return null;
   }
 }
 
@@ -67,5 +69,6 @@ class Required extends ApiValidator {
   @override
   String? validateValue(String fieldName, value) {
     if (value == null) return '[$fieldName] is required';
+    return null;
   }
 }

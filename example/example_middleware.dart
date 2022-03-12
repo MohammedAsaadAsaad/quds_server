@@ -6,5 +6,6 @@ class ExampleMiddleware extends QudsMiddleware {
       : super(middleware: createMiddleware(requestHandler: (req) {
           // Inject some value to the request context
           req.context['some_value'] = {};
+          return null;
         }));
 }

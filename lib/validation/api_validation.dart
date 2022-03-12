@@ -22,6 +22,7 @@ Response? validateRequest(
       return responseApiBadRequest(message: validationResult);
     }
   }
+  return null;
 }
 
 extension BodyMapValidation on Map<String, dynamic> {
@@ -34,5 +35,6 @@ extension BodyMapValidation on Map<String, dynamic> {
         return responseApiBadRequest(message: validationResult);
       }
     }
+    return null;
   }
 }

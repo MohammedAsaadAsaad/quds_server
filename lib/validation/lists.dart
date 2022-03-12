@@ -15,5 +15,6 @@ class IsListOfType<T> extends ApiValidator {
     for (var v in value) {
       if (v is! T) return '[$fieldName] has invalid values';
     }
+    return null;
   }
 }

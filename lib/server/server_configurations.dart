@@ -26,6 +26,8 @@ class ServerConfigurations {
   /// Weather the app is running in debug mode.
   final bool isDebugMode;
 
+  final Object? Function(Object? obj)? responseJsonEncoder;
+
   /// The token service configurations.
   TokenServiceConfigurations? tokenServiceConfigurations;
 
@@ -40,7 +42,8 @@ class ServerConfigurations {
       this.enableLogging = true,
       this.enableRequestsLogging,
       this.enableAuthorization = true,
-      this.isDebugMode = true}) {
+      this.isDebugMode = true,
+      this.responseJsonEncoder}) {
     if (enableAuthorization == true) {
       tokenServiceConfigurations ??= TokenServiceConfigurations(
           prefix: 'token', host: 'localhost', port: 6379, secretKey: secretKey);

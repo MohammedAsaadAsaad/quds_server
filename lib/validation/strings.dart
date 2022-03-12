@@ -27,6 +27,7 @@ class IsString extends ApiValidator {
   String? validateValue(String fieldName, value) {
     if (value == null) return null;
     if (value is! String) return '[$fieldName] must be a string value';
+    return null;
   }
 }
 
@@ -37,6 +38,7 @@ class IsUrl extends ApiValidator {
     if (value is! String) return '[$fieldName] must be string';
     var result = Uri.tryParse(value)?.isAbsolute;
     if (result != null) return '[$fieldName] must be a url';
+    return null;
   }
 }
 
@@ -46,6 +48,7 @@ class IsEmail extends ApiValidator {
     if (value == null) return null;
     if (value is! String) return '[$fieldName] must be string';
     if (!validators.isEmail(value)) return '[$fieldName] must be an email';
+    return null;
   }
 }
 
@@ -62,5 +65,6 @@ class MatchRegex extends ApiValidator {
     if (match != value) {
       return '[$fieldName] doesn\'t match the requried pattern';
     }
+    return null;
   }
 }

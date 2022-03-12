@@ -14,5 +14,6 @@ class IsDateTime extends ApiValidator {
     if (value is! String || DateTime.tryParse(value) == null) {
       return '[$fieldName] must be a DateTime object';
     }
+    return null;
   }
 }
