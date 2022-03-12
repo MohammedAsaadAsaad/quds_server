@@ -1,7 +1,7 @@
 part of quds_server;
 
 extension ListsValidationExtention on ApiValidator {
-  /// Add [IsDateTime] validation rule.
+  /// Add [IsListOfType] validation rule.
   IsListOfType<T> isListOfType<T>() {
     return IsListOfType<T>()..parent = this;
   }
