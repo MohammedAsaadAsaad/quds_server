@@ -142,7 +142,8 @@ extension RequestExtension on Request {
           return (context['bodyJson'] ?? jsonDecode(await readAsString()))
               as Map<String, dynamic>;
         case 'GET':
-          return (context['bodyJson'] ?? this.params) as Map<String, dynamic>;
+          return (context['bodyJson'] ?? requestedUri.queryParameters)
+              as Map<String, dynamic>;
         default:
           return {};
       }
