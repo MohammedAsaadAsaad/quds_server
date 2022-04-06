@@ -49,6 +49,7 @@ part 'controllers/quds_controller.dart';
 part 'validation/api_validation.dart';
 part 'validation/commons.dart';
 part 'validation/datetimes.dart';
+part 'validation/booleans.dart';
 part 'validation/strings.dart';
 part 'validation/numbers.dart';
 part 'validation/lists.dart';
