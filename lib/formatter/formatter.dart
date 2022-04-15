@@ -139,11 +139,11 @@ extension RequestExtension on Request {
     try {
       switch (method) {
         case 'POST':
-          return (context['bodyJson'] ?? jsonDecode(await readAsString()))
-              as Map<String, dynamic>;
+          context['bodyJson'] ??= jsonDecode(await readAsString()) ?? {};
+          return context['bodyJson'] as Map<String, dynamic>;
         case 'GET':
-          return (context['bodyJson'] ?? requestedUri.queryParameters)
-              as Map<String, dynamic>;
+          context['bodyJson'] ??= requestedUri.queryParameters;
+          return context['bodyJson'] as Map<String, dynamic>;
         default:
           return {};
       }
