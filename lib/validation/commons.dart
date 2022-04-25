@@ -59,7 +59,7 @@ class Min extends ApiValidator {
         return '[$fieldName] length must be >= ${_min.toInt()}';
       }
     } else {
-      if (!(value <= _min)) return '[$fieldName] value must be >= $_min';
+      if (!(value >= _min)) return '[$fieldName] value must be >= $_min';
     }
     return null;
   }
