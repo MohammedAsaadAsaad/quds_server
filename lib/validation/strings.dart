@@ -36,8 +36,9 @@ class IsUrl extends ApiValidator {
   String? validateValue(String fieldName, value) {
     if (value == null) return null;
     if (value is! String) return '[$fieldName] must be string';
-    var result = Uri.tryParse(value)?.isAbsolute;
-    if (result != null) return '[$fieldName] must be a url';
+    var regex = RegExp(
+        r'[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)');
+    if (!regex.hasMatch(value)) return '[$fieldName] must be a url';
     return null;
   }
 }
