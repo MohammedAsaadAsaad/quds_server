@@ -4,7 +4,7 @@ version: 1.0.0+9
 homepage: https://github.com/MohammedAsaadAsaad/quds_server
 
 environment:
-  sdk: '>=2.14.2 <3.0.0'
+  sdk: '>=2.17.0 <3.0.0'
 
 dependencies: 
   args: ^2.3.0
@@ -23,6 +23,7 @@ dependencies:
   validators: ^3.0.0
   yaml: ^3.1.0
   yaml_writer: ^1.0.1
+
 
 dev_dependencies:
   lints: ^1.0.0

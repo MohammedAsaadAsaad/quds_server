@@ -2,7 +2,7 @@ part of quds_server;
 
 String _encodeResponse(
     {int apiStatus = 0,
-    int serverStatus = 200,
+    ServerStatusCode serverStatus = ServerStatusCode.ok,
     String? message,
     Map<String, dynamic>? data,
     Object? Function(Object? obj)? jsonEncodingFunction}) {
@@ -14,7 +14,7 @@ String _encodeResponse(
   }, toEncodable: jsonEncodingFunction ?? serverDefaultJsonEncoder);
 }
 
-Response _formatResponse(int httpStatus,
+Response _formatResponse(ServerStatusCode httpStatus,
     {int apiStatus = 0,
     String? message,
     Encoding? encoding,
@@ -25,7 +25,7 @@ Response _formatResponse(int httpStatus,
   var setHeaders = headers ?? {};
   setHeaders[HttpHeaders.contentTypeHeader] = ContentType.json.mimeType;
 
-  return Response(httpStatus,
+  return Response(httpStatus.code,
       body: _encodeResponse(
           apiStatus: apiStatus,
           serverStatus: httpStatus,
@@ -46,8 +46,8 @@ Response responseApiForbidden(
     Map<String, Object>? context,
     Map<String, Object>? headers,
     Object? Function(Object? obj)? jsonEncodingFunction}) {
-  return _formatResponse(HttpStatus.forbidden,
-      apiStatus: apiStatus,
+  return _formatResponse(ServerStatusCode.forbidden,
+      apiStatus: ServerStatusCode.forbidden.code,
       message: message,
       encoding: encoding,
       data: data,
@@ -65,7 +65,7 @@ Response responseApiBadRequest(
     Map<String, Object>? context,
     Map<String, Object>? headers,
     Object? Function(Object? obj)? jsonEncodingFunction}) {
-  return _formatResponse(HttpStatus.badRequest,
+  return _formatResponse(ServerStatusCode.badRequest,
       apiStatus: apiStatus,
       message: message,
       encoding: encoding,
@@ -84,7 +84,7 @@ Response responseApiOk(
     Map<String, Object>? context,
     Map<String, Object>? headers,
     Object? Function(Object? obj)? jsonEncodingFunction}) {
-  return _formatResponse(HttpStatus.ok,
+  return _formatResponse(ServerStatusCode.ok,
       apiStatus: apiStatus,
       message: message,
       encoding: encoding,
@@ -103,7 +103,7 @@ Response responseApiNotFound(
     Map<String, Object>? context,
     Map<String, Object>? headers,
     Object? Function(Object? obj)? jsonEncodingFunction}) {
-  return _formatResponse(HttpStatus.notFound,
+  return _formatResponse(ServerStatusCode.notFound,
       message: message,
       encoding: encoding,
       data: data,
@@ -122,7 +122,7 @@ Response responseApiInternalServerError(
     Map<String, Object>? context,
     Map<String, Object>? headers,
     Object? Function(Object? obj)? jsonEncodingFunction}) {
-  return _formatResponse(HttpStatus.internalServerError,
+  return _formatResponse(ServerStatusCode.internalServerError,
       message: message,
       apiStatus: apiStatus,
       encoding: encoding,
