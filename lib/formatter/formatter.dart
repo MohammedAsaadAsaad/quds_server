@@ -38,6 +38,26 @@ Response _formatResponse(ServerStatusCode httpStatus,
 }
 
 /// Get an instance of [Response] with forbidden status
+Response responseApi(
+    {required ServerStatusCode httpStatus,
+    int apiStatus = 0,
+    String? message,
+    Encoding? encoding,
+    Map<String, dynamic>? data,
+    Map<String, Object>? context,
+    Map<String, Object>? headers,
+    Object? Function(Object? obj)? jsonEncodingFunction}) {
+  return _formatResponse(httpStatus,
+      apiStatus: apiStatus,
+      message: message,
+      encoding: encoding,
+      data: data,
+      context: context,
+      headers: headers,
+      jsonEncodingFunction: jsonEncodingFunction);
+}
+
+/// Get an instance of [Response] with forbidden status
 Response responseApiForbidden(
     {int apiStatus = HttpStatus.forbidden,
     String? message,
@@ -47,7 +67,7 @@ Response responseApiForbidden(
     Map<String, Object>? headers,
     Object? Function(Object? obj)? jsonEncodingFunction}) {
   return _formatResponse(ServerStatusCode.forbidden,
-      apiStatus: ServerStatusCode.forbidden.code,
+      apiStatus: apiStatus,
       message: message,
       encoding: encoding,
       data: data,

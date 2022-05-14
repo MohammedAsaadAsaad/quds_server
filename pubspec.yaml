@@ -11,7 +11,9 @@ dependencies:
   crypto: ^3.0.1
   dart_jsonwebtoken: ^2.3.2
   dart_spawner: ^1.0.5
+  dio: ^4.0.6
   hotreloader: ^3.0.1
+  http: ^0.13.4
   logging: ^1.0.2
   project_template: ^1.0.2
   redis: ^2.0.0
