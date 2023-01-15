@@ -8,7 +8,7 @@ String _encodeResponse(
     Object? Function(Object? obj)? jsonEncodingFunction}) {
   return jsonEncode({
     'api_status': apiStatus,
-    'server_status': serverStatus,
+    'server_status': serverStatus.code,
     'message': message,
     'data': data
   }, toEncodable: jsonEncodingFunction ?? serverDefaultJsonEncoder);
