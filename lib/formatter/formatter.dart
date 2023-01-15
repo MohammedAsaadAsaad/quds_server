@@ -4,7 +4,7 @@ String _encodeResponse(
     {int apiStatus = 0,
     ServerStatusCode serverStatus = ServerStatusCode.ok,
     String? message,
-    Map<String, dynamic>? data,
+    dynamic data,
     Object? Function(Object? obj)? jsonEncodingFunction}) {
   return jsonEncode({
     'api_status': apiStatus,
@@ -18,7 +18,7 @@ Response _formatResponse(ServerStatusCode httpStatus,
     {int apiStatus = 0,
     String? message,
     Encoding? encoding,
-    Map<String, dynamic>? data,
+    dynamic data,
     Map<String, Object>? context,
     Map<String, Object>? headers,
     Object? Function(Object? obj)? jsonEncodingFunction}) {
@@ -43,7 +43,7 @@ Response responseApi(
     int apiStatus = 0,
     String? message,
     Encoding? encoding,
-    Map<String, dynamic>? data,
+    dynamic data,
     Map<String, Object>? context,
     Map<String, Object>? headers,
     Object? Function(Object? obj)? jsonEncodingFunction}) {
@@ -62,7 +62,7 @@ Response responseApiForbidden(
     {int apiStatus = HttpStatus.forbidden,
     String? message,
     Encoding? encoding,
-    Map<String, dynamic>? data,
+    dynamic data,
     Map<String, Object>? context,
     Map<String, Object>? headers,
     Object? Function(Object? obj)? jsonEncodingFunction}) {
@@ -81,7 +81,7 @@ Response responseApiBadRequest(
     {int apiStatus = HttpStatus.badRequest,
     String? message,
     Encoding? encoding,
-    Map<String, dynamic>? data,
+    dynamic data,
     Map<String, Object>? context,
     Map<String, Object>? headers,
     Object? Function(Object? obj)? jsonEncodingFunction}) {
@@ -100,7 +100,7 @@ Response responseApiOk(
     {int apiStatus = 0,
     String? message,
     Encoding? encoding,
-    Map<String, dynamic>? data,
+    dynamic data,
     Map<String, Object>? context,
     Map<String, Object>? headers,
     Object? Function(Object? obj)? jsonEncodingFunction}) {
@@ -119,7 +119,7 @@ Response responseApiNotFound(
     {int apiStatus = HttpStatus.notFound,
     String? message,
     Encoding? encoding,
-    Map<String, dynamic>? data,
+    dynamic data,
     Map<String, Object>? context,
     Map<String, Object>? headers,
     Object? Function(Object? obj)? jsonEncodingFunction}) {
@@ -138,7 +138,7 @@ Response responseApiInternalServerError(
     {int apiStatus = HttpStatus.internalServerError,
     String? message,
     Encoding? encoding,
-    Map<String, dynamic>? data,
+    dynamic data,
     Map<String, Object>? context,
     Map<String, Object>? headers,
     Object? Function(Object? obj)? jsonEncodingFunction}) {
