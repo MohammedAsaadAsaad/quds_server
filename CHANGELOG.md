@@ -22,3 +22,6 @@
 
 ## 1.0.0+8
 - Added lists validations
+
+## 1.0.1+1
+- Added lists validations
