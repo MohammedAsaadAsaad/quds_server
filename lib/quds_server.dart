@@ -16,6 +16,7 @@ import 'package:shelf/shelf_io.dart';
 import 'package:shelf_router/shelf_router.dart';
 import 'package:uuid/uuid.dart';
 import 'package:validators/validators.dart' as validators;
+import 'package:web_socket_channel/web_socket_channel.dart';
 
 //Authorization
 part 'authorization/token_pair.dart';
@@ -48,3 +49,7 @@ part 'validation/datetimes.dart';
 part 'validation/lists.dart';
 part 'validation/numbers.dart';
 part 'validation/strings.dart';
+//Websockets
+part 'websockets/user_web_socket.dart';
+part 'websockets/user_web_sockets_manager.dart';
+part 'websockets/web_socket_handler.dart';

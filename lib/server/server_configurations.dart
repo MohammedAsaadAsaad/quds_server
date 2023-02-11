@@ -9,6 +9,7 @@ class ServerConfigurations {
 
   /// The port of this server app.
   final int port;
+  final int? webSocketPort;
 
   /// The secret key of this server app.
   final String secretKey;
@@ -43,7 +44,8 @@ class ServerConfigurations {
       this.enableRequestsLogging,
       this.enableAuthorization = true,
       this.isDebugMode = true,
-      this.responseJsonEncoder}) {
+      this.responseJsonEncoder,
+      this.webSocketPort}) {
     if (enableAuthorization == true) {
       tokenServiceConfigurations ??= TokenServiceConfigurations(
           prefix: 'token', host: 'localhost', port: 6379, secretKey: secretKey);

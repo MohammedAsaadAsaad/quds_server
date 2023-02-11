@@ -19,12 +19,16 @@ class QudsServer {
   TokenService? get tokenService => _tokenService;
 
   /// Create an instance of [QudsServer]
-  QudsServer({
-    required this.appName,
-    required this.configurations,
-    required this.routers,
-    this.middlewares,
-  });
+  QudsServer(
+      {required this.appName,
+      required this.configurations,
+      required this.routers,
+      this.middlewares,
+      this.validateUserWebSocket});
+
+  final Future<int?> Function(
+          WebSocketChannel ws, Map<String, String> initialHeaders)?
+      validateUserWebSocket;
 
   /// To start the server app
   Future<HttpServer> start() async {
@@ -47,6 +51,7 @@ class QudsServer {
     var result = serve(appHandler, configurations.host, configurations.port,
         securityContext: configurations.securityContext);
 
+    _initializeWebSocket(configurations);
     return result
       ..then((value) => _logMessage(
           '[$appName] started serving at:  http://${configurations.host}:${configurations.port}'));
@@ -82,5 +87,29 @@ class QudsServer {
     if (configurations.enableLogging == true) {
       print(message);
     }
+  }
+
+  void _initializeWebSocket(ServerConfigurations configs) async {
+    if (configs.webSocketPort == null) return;
+
+    // var handler = createWebSocketHandler((ws, _) async {
+    //   await validateUserWebSocket?.call(ws);
+    // });
+    await serve(
+        WebSocketHandler(
+                (WebSocketChannel ws, Map<String, String> headers) async {
+          if (validateUserWebSocket != null) {
+            var result = await validateUserWebSocket?.call(ws, headers);
+            if (result != null) UserWebSocketsManager.addUserSocket(result, ws);
+          }
+        }, null, null, null)
+            .handle,
+        configs.host,
+        configs.webSocketPort!);
+    print('Serving at ws://${configs.host}:${configs.webSocketPort}');
+  }
+
+  FutureOr<Response> createWebSocketHandler(Request request) async {
+    return responseApiOk();
   }
 }
