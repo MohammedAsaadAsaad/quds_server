@@ -5,7 +5,7 @@ abstract class CliCommand {
   Future<void> execute(ArgResults args);
 
   void printColored(
-    String text, {
+    Object msg, {
     int r = 0,
     int g = 0,
     int b = 0,
@@ -14,55 +14,55 @@ abstract class CliCommand {
     AnsiPen pen = AnsiPen();
     pen.rgb(r: r, g: g, b: b, bg: bg);
     pen(
-      text,
+      msg,
     );
   }
 
-  void printRed(String text, {bool bg = false, bool bold = false}) {
+  void printRed(Object msg, {bool bg = false, bool bold = false}) {
     AnsiPen pen = AnsiPen();
     pen.red(bg: bg, bold: bold);
-    pen(text);
+    pen(msg);
   }
 
-  void printWhite(String text, {bool bg = false, bool bold = false}) {
+  void printWhite(Object msg, {bool bg = false, bool bold = false}) {
     AnsiPen pen = AnsiPen();
     pen.white(bg: bg, bold: bold);
-    pen(text);
+    pen(msg);
   }
 
-  void printBlue(String text, {bool bg = false, bool bold = false}) {
+  void printBlue(Object msg, {bool bg = false, bool bold = false}) {
     AnsiPen pen = AnsiPen();
     pen.blue(bg: bg, bold: bold);
-    pen(text);
+    pen(msg);
   }
 
-  void printBlack(String text, {bool bg = false, bool bold = false}) {
+  void printBlack(Object msg, {bool bg = false, bool bold = false}) {
     AnsiPen pen = AnsiPen();
     pen.black(bg: bg, bold: bold);
-    pen(text);
+    pen(msg);
   }
 
-  void printGreen(String text, {bool bg = false, bool bold = false}) {
+  void printGreen(Object msg, {bool bg = false, bool bold = false}) {
     AnsiPen pen = AnsiPen();
     pen.green(bg: bg, bold: bold);
-    pen(text);
+    pen(msg);
   }
 
-  void printYellow(String text, {bool bg = false, bool bold = false}) {
+  void printYellow(Object msg, {bool bg = false, bool bold = false}) {
     AnsiPen pen = AnsiPen();
     pen.yellow(bg: bg, bold: bold);
-    pen(text);
+    pen(msg);
   }
 
-  void printMagenta(String text, {bool bg = false, bool bold = false}) {
+  void printMagenta(Object msg, {bool bg = false, bool bold = false}) {
     AnsiPen pen = AnsiPen();
     pen.magenta(bg: bg, bold: bold);
-    pen(text);
+    pen(msg);
   }
 
-  void printCyan(String text, {bool bg = false, bool bold = false}) {
+  void printCyan(Object msg, {bool bg = false, bool bold = false}) {
     AnsiPen pen = AnsiPen();
     pen.cyan(bg: bg, bold: bold);
-    pen(text);
+    pen(msg);
   }
 }

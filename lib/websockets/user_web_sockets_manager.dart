@@ -10,11 +10,16 @@ abstract class UserWebSocketsManager {
     _sockets[userId]!.add(UserWebSocket(userId: userId, ws: ws));
   }
 
-  static void _closeInActiveSockets() {
+  static int _closeInActiveSockets() {
+    int count = 0;
     for (var k in _sockets.keys) {
       _closeUserInActiveSockets(k);
-      if (_sockets[k]!.isEmpty) _sockets.remove(k);
+      if (_sockets[k]!.isEmpty) {
+        _sockets.remove(k);
+        count++;
+      }
     }
+    return count;
   }
 
   static void _closeUserInActiveSockets(dynamic userId) {
@@ -62,7 +67,20 @@ abstract class UserWebSocketsManager {
     _closeInActiveSockets();
   }
 
-  static void closeInActiveSockets() async => _closeInActiveSockets();
+  static int closeInActiveSockets() => _closeInActiveSockets();
+  static Future<int> closeAllSockets() async {
+    var inactive = _closeInActiveSockets();
+
+    int all = inactive;
+    for (var e in _sockets.entries) {
+      for (var s in e.value) {
+        await s.ws.sink.close();
+        all++;
+      }
+    }
+
+    return all;
+  }
 
   static int get openSocketsCount {
     int count = 0;
