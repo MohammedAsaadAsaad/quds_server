@@ -61,4 +61,17 @@ abstract class UserWebSocketsManager {
 
     _closeInActiveSockets();
   }
+
+  void closeInActiveSockets() async => _closeInActiveSockets();
+
+  static int get openSocketsCount {
+    int count = 0;
+    for (var e in _sockets.entries) {
+      for (var s in e.value) {
+        if (s.ws.closeCode == null) count++;
+      }
+    }
+
+    return count;
+  }
 }
