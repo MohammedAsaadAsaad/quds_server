@@ -21,48 +21,48 @@ abstract class CliCommand {
   void printRed(Object msg, {bool bg = false, bool bold = false}) {
     AnsiPen pen = AnsiPen();
     pen.red(bg: bg, bold: bold);
-    pen(msg);
+    stdout.writeln(pen(msg));
   }
 
   void printWhite(Object msg, {bool bg = false, bool bold = false}) {
     AnsiPen pen = AnsiPen();
     pen.white(bg: bg, bold: bold);
-    pen(msg);
+    stdout.writeln(pen(msg));
   }
 
   void printBlue(Object msg, {bool bg = false, bool bold = false}) {
     AnsiPen pen = AnsiPen();
     pen.blue(bg: bg, bold: bold);
-    pen(msg);
+    stdout.writeln(pen(msg));
   }
 
   void printBlack(Object msg, {bool bg = false, bool bold = false}) {
     AnsiPen pen = AnsiPen();
     pen.black(bg: bg, bold: bold);
-    pen(msg);
+    stdout.writeln(pen(msg));
   }
 
   void printGreen(Object msg, {bool bg = false, bool bold = false}) {
     AnsiPen pen = AnsiPen();
     pen.green(bg: bg, bold: bold);
-    pen(msg);
+    stdout.writeln(pen(msg));
   }
 
   void printYellow(Object msg, {bool bg = false, bool bold = false}) {
     AnsiPen pen = AnsiPen();
     pen.yellow(bg: bg, bold: bold);
-    pen(msg);
+    stdout.writeln(pen(msg));
   }
 
   void printMagenta(Object msg, {bool bg = false, bool bold = false}) {
     AnsiPen pen = AnsiPen();
     pen.magenta(bg: bg, bold: bold);
-    pen(msg);
+    stdout.writeln(pen(msg));
   }
 
   void printCyan(Object msg, {bool bg = false, bool bold = false}) {
     AnsiPen pen = AnsiPen();
     pen.cyan(bg: bg, bold: bold);
-    pen(msg);
+    stdout.writeln(pen(msg));
   }
 }
