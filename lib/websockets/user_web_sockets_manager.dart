@@ -62,7 +62,7 @@ abstract class UserWebSocketsManager {
     _closeInActiveSockets();
   }
 
-  void closeInActiveSockets() async => _closeInActiveSockets();
+  static void closeInActiveSockets() async => _closeInActiveSockets();
 
   static int get openSocketsCount {
     int count = 0;
