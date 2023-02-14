@@ -13,6 +13,8 @@ class QudsServer {
 
   /// The injected middlewares
   final List<QudsMiddleware>? middlewares;
+  final List<CliCommand>? cliCommands;
+
   TokenService? _tokenService;
 
   /// To get the token service of this server app
@@ -24,7 +26,8 @@ class QudsServer {
       required this.configurations,
       required this.routers,
       this.middlewares,
-      this.validateUserWebSocket});
+      this.validateUserWebSocket,
+      this.cliCommands});
 
   final Future<int?> Function(
           WebSocketChannel ws, Map<String, String> initialHeaders)?
@@ -36,6 +39,16 @@ class QudsServer {
         configurations.enableAuthorization == false ||
         (configurations.enableAuthorization! &&
             configurations.tokenServiceConfigurations != null));
+
+    Map<String, CliCommand>? commandsMap;
+    if (cliCommands != null && cliCommands!.isNotEmpty) {
+      commandsMap = {};
+      cliCommands!.insert(0, _HelpCommand(commandsMap));
+      cliCommands!.insert(0, _ExitCommand());
+      for (var c in cliCommands!) {
+        commandsMap[c.prefix.toLowerCase().trim()] = c;
+      }
+    }
 
     if (configurations.enableAuthorization == true) {
       _tokenService ??=
@@ -51,10 +64,14 @@ class QudsServer {
     var result = serve(appHandler, configurations.host, configurations.port,
         securityContext: configurations.securityContext);
 
-    _initializeWebSocket(configurations);
-    return result
-      ..then((value) => _logMessage(
-          '[$appName] started serving at:  http://${configurations.host}:${configurations.port}'));
+    await result;
+    _logMessage(
+        '[$appName] started serving at:  http://${configurations.host}:${configurations.port}');
+
+    await _initializeWebSocket(configurations);
+
+    if (commandsMap != null) handleCliCommands(commandsMap);
+    return result;
   }
 
   Handler _getAppHandler(Router app) {
@@ -65,7 +82,10 @@ class QudsServer {
       CorsMiddleware(),
       if (configurations.automaticDecodeBodyAsJson == true)
         BodyGeneratorMiddleware(),
-      if (configurations.enableRequestsLogging == true) LoggingMiddleware(),
+      //Logging enabled when cli commands are not set
+      if (configurations.enableRequestsLogging == true &&
+          (cliCommands == null || cliCommands!.isEmpty))
+        LoggingMiddleware(),
       if (configurations.enableAuthorization == true)
         InjectAuthorizationDetailsMiddleware(configurations.secretKey),
       if (this.middlewares != null) ...this.middlewares!
@@ -89,7 +109,7 @@ class QudsServer {
     }
   }
 
-  void _initializeWebSocket(ServerConfigurations configs) async {
+  Future<void> _initializeWebSocket(ServerConfigurations configs) async {
     if (configs.webSocketPort == null) return;
 
     // var handler = createWebSocketHandler((ws, _) async {
@@ -106,10 +126,28 @@ class QudsServer {
             .handle,
         configs.host,
         configs.webSocketPort!);
-    print('Serving at ws://${configs.host}:${configs.webSocketPort}');
+    print(
+        'Websockets Serving at ws://${configs.host}:${configs.webSocketPort}');
   }
 
-  FutureOr<Response> createWebSocketHandler(Request request) async {
-    return responseApiOk();
+  Future<void> handleCliCommands(Map<String, CliCommand> commands) async {
+    var parser = ArgParser.allowAnything();
+    stdout.write('$appName> ');
+    var entered = stdin.readLineSync();
+    if (entered != null && entered.trim().isNotEmpty) {
+      var parts = entered.trim().split(' ');
+      var prefix = parts[0].trim().toLowerCase();
+      var command = commands[prefix];
+      if (command == null) {
+        AnsiPen pen = AnsiPen()..red(bold: true);
+        stdout.writeln(pen("Command [") + prefix + pen('] is not recognized!'));
+      } else {
+        var args =
+            parser.parse([for (int i = 1; i < parts.length; i++) parts[i]]);
+        await command.execute(args);
+      }
+    }
+
+    await handleCliCommands(commands);
   }
 }

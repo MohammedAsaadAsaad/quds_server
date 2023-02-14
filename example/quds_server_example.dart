@@ -2,11 +2,13 @@ import 'dart:math';
 
 import 'package:quds_server/quds_server.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
+import 'cli_commands/some_command.dart';
 import 'example_router.dart';
 
 late QudsServer server;
 void main() {
   server = QudsServer(
+      cliCommands: [SomeCommand()],
       appName: 'Example App',
       configurations: ServerConfigurations(
           // securityContext: SecurityContext.defaultContext,

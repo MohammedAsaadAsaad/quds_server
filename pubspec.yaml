@@ -27,6 +27,7 @@ dependencies:
   yaml: ^3.1.0
   yaml_writer: ^1.0.1
   web_socket_channel: ^2.3.0
+  ansicolor: ^2.0.1
 
 dev_dependencies:
   lints: ^1.0.0

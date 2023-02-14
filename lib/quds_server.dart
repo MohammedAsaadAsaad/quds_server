@@ -1,6 +1,7 @@
 /// A core server for creating fast dart servers with support of routers, controllers, middlewares.
 library quds_server;
 
+// Dart
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
@@ -17,6 +18,10 @@ import 'package:shelf_router/shelf_router.dart';
 import 'package:uuid/uuid.dart';
 import 'package:validators/validators.dart' as validators;
 import 'package:web_socket_channel/web_socket_channel.dart';
+
+//Cli Command
+import 'package:args/args.dart';
+import 'package:ansicolor/ansicolor.dart';
 
 //Authorization
 part 'authorization/token_pair.dart';
@@ -41,6 +46,8 @@ part 'server/quds_server.dart';
 part 'server/server_configurations.dart';
 part 'server/server_status_code.dart';
 part 'server/server_status_code_group.dart';
+part 'server/cli_command.dart';
+
 // Validation
 part 'validation/api_validation.dart';
 part 'validation/booleans.dart';
@@ -53,3 +60,7 @@ part 'validation/strings.dart';
 part 'websockets/user_web_socket.dart';
 part 'websockets/user_web_sockets_manager.dart';
 part 'websockets/web_socket_handler.dart';
+
+// Default commands
+part 'server/default_cli_commands/exit_command.dart';
+part 'server/default_cli_commands/help_command.dart';
