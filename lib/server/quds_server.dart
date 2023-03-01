@@ -122,7 +122,7 @@ class QudsServer {
             var result = await validateUserWebSocket?.call(ws, headers);
             if (result != null) UserWebSocketsManager.addUserSocket(result, ws);
           }
-        }, null, null, null)
+        }, null, null, configurations.webSockectsPingInterval)
             .handle,
         configs.host,
         configs.webSocketPort!);
