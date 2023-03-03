@@ -34,6 +34,7 @@ abstract class UserWebSocketsManager {
 
     if (socketsToClose.isNotEmpty) {
       for (var s in socketsToClose) {
+        s.ws.sink.close();
         _sockets.remove(s);
       }
     }

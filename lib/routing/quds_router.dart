@@ -3,13 +3,17 @@ part of quds_server;
 /// A base class of the routers
 abstract class QudsRouter<T extends QudsController> {
   /// The related controller of this router
-  T? controller;
+  T Function()? controllerBuilder;
+  final bool singletonController;
 
   /// The prefix of this router (eg: /users/)
   final String prefix;
 
   /// Create an instance of [QudsRouter]
-  QudsRouter({this.prefix = '', this.controller});
+  QudsRouter(
+      {this.prefix = '',
+      this.controllerBuilder,
+      this.singletonController = false});
 
   /// The sub routes
   List<QudsRouterHandler> get routes;
@@ -62,4 +66,16 @@ abstract class QudsRouter<T extends QudsController> {
     }
     return routeName;
   }
+
+  T? _controller;
+  T? _getController() {
+    if (singletonController) {
+      _controller ??= controllerBuilder?.call();
+      return _controller;
+    } else {
+      return controllerBuilder?.call();
+    }
+  }
+
+  T? get controller => _getController();
 }
