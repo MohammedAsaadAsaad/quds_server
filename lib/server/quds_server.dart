@@ -29,7 +29,7 @@ class QudsServer {
       this.validateUserWebSocket,
       this.cliCommands});
 
-  final Future<int?> Function(
+  final Future<dynamic> Function(
           WebSocketChannel ws, Map<String, String> initialHeaders)?
       validateUserWebSocket;
 
@@ -85,7 +85,7 @@ class QudsServer {
       //Logging enabled when cli commands are not set
       if (configurations.enableRequestsLogging == true &&
           (cliCommands == null || cliCommands!.isEmpty))
-        LoggingMiddleware(),
+        RequestLoggerMiddleware(),
       if (configurations.enableAuthorization == true)
         InjectAuthorizationDetailsMiddleware(configurations.secretKey),
       if (this.middlewares != null) ...this.middlewares!
@@ -115,17 +115,19 @@ class QudsServer {
     // var handler = createWebSocketHandler((ws, _) async {
     //   await validateUserWebSocket?.call(ws);
     // });
+
     await serve(
-        WebSocketHandler(
-                (WebSocketChannel ws, Map<String, String> headers) async {
-          if (validateUserWebSocket != null) {
-            var result = await validateUserWebSocket?.call(ws, headers);
-            if (result != null) UserWebSocketsManager.addUserSocket(result, ws);
-          }
-        }, null, null, configurations.webSockectsPingInterval)
-            .handle,
-        configs.host,
-        configs.webSocketPort!);
+      WebSocketHandler(
+              (WebSocketChannel ws, Map<String, String> headers) async {
+        if (validateUserWebSocket != null) {
+          var result = await validateUserWebSocket?.call(ws, headers);
+          if (result != null) UserWebSocketsManager.addUserSocket(result, ws);
+        }
+      }, null, null, configurations.webSockectsPingInterval)
+          .handle,
+      configs.host,
+      configs.webSocketPort!,
+    );
     print(
         'Websockets Serving at ws://${configs.host}:${configs.webSocketPort}');
   }

@@ -28,6 +28,7 @@ dependencies:
   yaml_writer: ^1.0.1
   web_socket_channel: ^2.3.0
   ansicolor: ^2.0.1
+  stack_trace: ^1.11.0
 
 dev_dependencies:
   lints: ^1.0.0
