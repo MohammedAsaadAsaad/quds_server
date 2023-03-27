@@ -173,6 +173,10 @@ extension RequestExtension on Request {
       return {};
     }
   }
+
+  Stream<List<int>>? get bodyAsStream {
+    return context['bodySream'] as Stream<List<int>>?;
+  }
 }
 
 Object? Function(Object? obj)? serverDefaultJsonEncoder;

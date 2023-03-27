@@ -13,7 +13,6 @@ class UserWebSocket {
     if (subscription != null) {
       subscription!.cancel();
       subscription = null;
-      print('released web socket stream');
     }
   }
 

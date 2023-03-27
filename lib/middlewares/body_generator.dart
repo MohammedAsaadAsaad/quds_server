@@ -4,8 +4,11 @@ class BodyGeneratorMiddleware extends QudsMiddleware {
   BodyGeneratorMiddleware()
       : super(middleware: (Handler innerHandler) {
           return (Request request) async {
-            final updateRequest =
-                request.change(context: {'bodyJson': await request.bodyAsJson});
+            var read = request.read();
+            var encoding = request.encoding ?? utf8;
+            var bodyJson = await encoding.decodeStream(read);
+            final updateRequest = request
+                .change(context: {'bodyStream': read, 'bodyJson': bodyJson});
             return await innerHandler(updateRequest);
           };
         });

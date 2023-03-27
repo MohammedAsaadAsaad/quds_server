@@ -14,8 +14,9 @@ class QudsRouterHandler {
   final Function handler;
 
   /// Create an instance of [QudsRouterHandler]
-  QudsRouterHandler(
-      {required this.routePath,
-      this.method = RouteMethod.get,
-      required this.handler});
+  QudsRouterHandler({
+    required this.routePath,
+    this.method = RouteMethod.get,
+    required this.handler,
+  });
 }
