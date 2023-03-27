@@ -174,8 +174,9 @@ extension RequestExtension on Request {
     }
   }
 
-  Stream<List<int>>? get bodyAsStream {
-    return context['bodySream'] as Stream<List<int>>?;
+  bool get isMultiPartFormData {
+    var contentType = headers['content-type'];
+    return contentType?.contains('multipart/form-data') ?? true;
   }
 }
 
