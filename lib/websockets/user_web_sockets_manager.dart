@@ -1,6 +1,10 @@
 part of quds_server;
 
 abstract class UserWebSocketsManager {
+  // ignore: prefer_final_fields
+  static bool _isSocketsServiceRunning = false;
+  static bool get isSocketsServiceRunning => _isSocketsServiceRunning;
+
   static final Map<dynamic, List<UserWebSocket>> _sockets = {};
 
   static void addUserSocket(dynamic userId, WebSocketChannel ws) {

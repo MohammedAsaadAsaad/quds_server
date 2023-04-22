@@ -115,21 +115,25 @@ class QudsServer {
     // var handler = createWebSocketHandler((ws, _) async {
     //   await validateUserWebSocket?.call(ws);
     // });
-
-    await serve(
-      WebSocketHandler(
-              (WebSocketChannel ws, Map<String, String> headers) async {
-        if (validateUserWebSocket != null) {
-          var result = await validateUserWebSocket?.call(ws, headers);
-          if (result != null) UserWebSocketsManager.addUserSocket(result, ws);
-        }
-      }, null, null, configurations.webSockectsPingInterval)
-          .handle,
-      configs.host,
-      configs.webSocketPort!,
-    );
-    print(
-        'Websockets Serving at ws://${configs.host}:${configs.webSocketPort}');
+    try {
+      await serve(
+        WebSocketHandler(
+                (WebSocketChannel ws, Map<String, String> headers) async {
+          if (validateUserWebSocket != null) {
+            var result = await validateUserWebSocket?.call(ws, headers);
+            if (result != null) UserWebSocketsManager.addUserSocket(result, ws);
+          }
+        }, null, null, configurations.webSockectsPingInterval)
+            .handle,
+        configs.host,
+        configs.webSocketPort!,
+      );
+      print(
+          'Websockets Serving at ws://${configs.host}:${configs.webSocketPort}');
+      UserWebSocketsManager._isSocketsServiceRunning = true;
+    } catch (e) {
+      UserWebSocketsManager._isSocketsServiceRunning = false;
+    }
   }
 
   Future<void> handleCliCommands(Map<String, CliCommand> commands) async {
