@@ -33,9 +33,9 @@ dynamic verifyJwt(String token, String secret) {
   try {
     final jwt = JWT.verify(token, SecretKey(secret));
     return jwt;
-  } on JWTExpiredError catch (err) {
+  } on JWTExpiredException catch (err) {
     print(err);
-  } on JWTError catch (err) {
+  } on JWTException catch (err) {
     print(err);
   }
 }
