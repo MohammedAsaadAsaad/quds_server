@@ -160,7 +160,7 @@ extension RequestExtension on Request {
       switch (method) {
         case 'POST':
           return (context['bodyJson'] ??
-              jsonDecode(await readAsString()) ??
+              _requestBody(await readAsString()) ??
               {});
         case 'GET':
           return (context['bodyJson'] ?? requestedUri.queryParameters)
@@ -172,6 +172,10 @@ extension RequestExtension on Request {
       print(e);
       return {};
     }
+  }
+
+  dynamic _requestBody(String str) {
+    return str.isEmpty ? <String, dynamic>{} : jsonDecode(str);
   }
 
   bool get isMultiPartFormData {
